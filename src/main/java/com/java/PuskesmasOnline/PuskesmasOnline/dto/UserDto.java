@@ -1,22 +1,16 @@
 package com.java.PuskesmasOnline.PuskesmasOnline.dto;
 
-public class PekerjaanDTO {
+public class UserDto {
 
     private Long id;
-    private String namaPekerjaan;
-
-    private String alamatPekerjaan;
-
-    private String gajiPegawai;
 
     private String email;
 
-    private String tentangPekerjaan;
+    private String username;
 
+    private String noTel;
 
-    private Long idPelamar;
-
-    private String namaPelamar;
+    private String imgUser;
 
 
 
@@ -28,73 +22,48 @@ public class PekerjaanDTO {
         this.id = id;
     }
 
-    public String getNamaPekerjaan() {
-        return namaPekerjaan;
-    }
-
-    public void setNamaPekerjaan(String namaPekerjaan) {
-        this.namaPekerjaan = namaPekerjaan;
-    }
-
-    public String getAlamatPekerjaan() {
-        return alamatPekerjaan;
-    }
-
-    public void setAlamatPekerjaan(String alamatPekerjaan) {
-        this.alamatPekerjaan = alamatPekerjaan;
-    }
-
-    public String getGajiPegawai() {
-        return gajiPegawai;
-    }
-
-    public void setGajiPegawai(String gajiPegawai) {
-        this.gajiPegawai = gajiPegawai;
-    }
 
     public String getEmail() {
         return email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getNoTel() {
+        return noTel;
+    }
+
+    public void setNoTel(String noTel) {
+        this.noTel = noTel;
+    }
+
+    public String getImgUser() {
+        return imgUser;
+    }
+
+    public void setImgUser(String imgUser) {
+        this.imgUser = imgUser;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getTentangPekerjaan() {
-        return tentangPekerjaan;
-    }
-
-    public void setTentangPekerjaan(String tentangPekerjaan) {
-        this.tentangPekerjaan = tentangPekerjaan;
-    }
-
-    public Long getIdPelamar() {
-        return idPelamar;
-    }
-
-    public void setIdPelamar(Long idPelamar) {
-        this.idPelamar = idPelamar;
-    }
-
-    public String getNamaPelamar() {
-        return namaPelamar;
-    }
-
-    public void setNamaPelamar(String namaPelamar) {
-        this.namaPelamar = namaPelamar;
-    }
 
     @Override
     public String toString() {
-        return "PekerjaanDTO{" +
+        return "UserDto{" +
                 "id=" + id +
-                ", namaPekerjaan='" + namaPekerjaan + '\'' +
-                ", alamatPekerjaan='" + alamatPekerjaan + '\'' +
-                ", gajiPegawai='" + gajiPegawai + '\'' +
                 ", email='" + email + '\'' +
-                ", tentangPekerjaan='" + tentangPekerjaan + '\'' +
-                ", idPelamar='" + idPelamar + '\'' +
-                ", namaPelamar='" + namaPelamar + '\'' +
+                ", username='" + username + '\'' +
+                ", noTel='" + noTel + '\'' +
+                ", imguser='" + imgUser + '\'' +
                 '}';
     }
 

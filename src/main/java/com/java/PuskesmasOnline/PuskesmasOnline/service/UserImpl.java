@@ -4,12 +4,17 @@ import com.java.PuskesmasOnline.PuskesmasOnline.repository.UserRepository;
 import com.java.PuskesmasOnline.PuskesmasOnline.security.JwtUtils;
 import com.java.PuskesmasOnline.PuskesmasOnline.model.LoginRequest;
 import com.java.PuskesmasOnline.PuskesmasOnline.model.User;
+import com.java.PuskesmasOnline.PuskesmasOnline.util.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -18,6 +23,8 @@ public class UserImpl implements UserService{
 
     @Autowired
     private UserRepository userRepository;
+
+
 
     @Autowired
     private JwtUtils jwtUtils;
@@ -70,7 +77,12 @@ public class UserImpl implements UserService{
             response.put("type_token", "User");
             // Lakukan apa yang perlu Anda lakukan untuk dashboard user
             // ...
-            response.put("redirect", "/dashboard");
+            response.put("redirect", "/dashboardUser");
+        } else if (user.getRole().equals("super_admin")) {
+            response.put("type_token", "Super Admin");
+            // Lakukan apa yang perlu Anda lakukan untuk dashboard super admin
+            // ...
+            response.put("redirect", "/dashboardSuperAdmin");
         } else {
             throw new NotFoundException("Invalid role");
         }
@@ -107,6 +119,20 @@ public class UserImpl implements UserService{
         return userRepository.findById(id).orElseThrow(() -> new NotFoundException("Id Not Found"));
     }
 
+    @Override
+    public String forgotPassword(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(
+                        () -> new RuntimeException("User Tidak Ditemukan Dengan Email : " + email)
+                );
+        try {
+            EmailUtil.sendSetPassword(email);
+        } catch (UnsupportedEncodingException | jakarta.mail.MessagingException e) {
+            throw new RuntimeException("Tidak Bisa Mengirimkan Link Forgot Password, Tolong Coba Lagi");
+        }
+        return "Tolong Cek Email Anda Untuk Melakukan Forgot Password";
+    }
+
 
     @Override
     public List<User> getAll() {
@@ -120,11 +146,13 @@ public class UserImpl implements UserService{
                 .orElseThrow(() -> new NotFoundException("User tidak ditemukan"));
 
 
+        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+
         // Set password yang sudah di-hash ke existingUser
-        existingUser.setPassword(encoder.encode(user.getPassword()));
+        existingUser.setPassword(encodedPassword);
         existingUser.setUsername(user.getUsername());
+        existingUser.setNoTel(user.getNoTel());
         existingUser.setImgUser(user.getImgUser());
-        existingUser.setUsername(user.getUsername());
         existingUser.setEmail(user.getEmail());
         // Tambahkan fields lain yang ingin diubah
 

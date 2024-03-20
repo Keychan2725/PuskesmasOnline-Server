@@ -13,7 +13,13 @@ public interface UserService {
     User addAdmin(User user);
     User get(Long id);
 
+
+
+    String forgotPassword(String email);
+
+
     List<User> getAll();
+
 
     User edit(Long id, User user);
 

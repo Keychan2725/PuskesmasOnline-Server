@@ -32,9 +32,13 @@ public class User {
     @Column(name = "imgUser")
     private  String imgUser;
 
+    @Column(name = "noTel")
+    private String noTel;
+
     @Column(name = "status")
     private String status;
 
+    private boolean enabled;
     @Column(name = "role")
     private String role;
 
@@ -46,6 +50,14 @@ public class User {
 
     public Long getId() {
         return id;
+    }
+
+    public String getNoTel() {
+        return noTel;
+    }
+
+    public void setNoTel(String noTel) {
+        this.noTel = noTel;
     }
 
     public void setId(Long id) {
@@ -62,6 +74,14 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public void setPassword(String password) {
@@ -115,5 +135,6 @@ public class User {
     public void setImgUser(String imgUser) {
         this.imgUser = imgUser;
     }
+
 
 }

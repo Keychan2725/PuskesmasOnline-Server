@@ -11,12 +11,17 @@
 	<groupId>com.java.lowongan</groupId>
 	<artifactId>lowongan_server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>lowongan_server</name>
-	<description>Lowongan Aplication</description>
+	<name>Puskesmas_online</name>
+	<description>Puskesmas Online Aplication</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>jakarta.activation</groupId>
+			<artifactId>jakarta.activation-api</artifactId>
+			<version>2.0.1</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
@@ -43,6 +48,8 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>4.0.1</version> <scope>provided</scope>
 		</dependency>
+
+
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
@@ -122,8 +129,34 @@
             <artifactId>spring-context-support</artifactId>
             <version>6.1.4</version>
         </dependency>
+		<dependency>
+			<groupId>com.google.cloud</groupId>
+			<artifactId>google-cloud-storage</artifactId>
+			<version>2.14.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-messaging</artifactId>
+			<version>5.3.25</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.angus</groupId>
+			<artifactId>jakarta.mail</artifactId>
+			<version>2.0.2</version>
+		</dependency>
 
-    </dependencies>
+
+	</dependencies>
 
 
 	<build>
