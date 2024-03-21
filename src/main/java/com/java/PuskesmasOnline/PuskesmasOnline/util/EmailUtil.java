@@ -3,34 +3,45 @@ package com.java.PuskesmasOnline.PuskesmasOnline.util;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.messaging.MessagingException;
 
-import javax.mail.Message;
 import java.io.UnsupportedEncodingException;
+import java.util.Properties;
 
 public class EmailUtil {
-    @Autowired
+
     private static JavaMailSender javaMailSender;
 
-    public EmailUtil(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
+    public JavaMailSender javaMailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("puskesmasonline273@gmail.com");
+        mailSender.setPort(587);
+        mailSender.setUsername("Pusline2024");
+        mailSender.setPassword("puskesmas123");
+        Properties properties = mailSender.getJavaMailProperties();
+        properties.put("mail.transport.protocol", "smtp");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        return mailSender;
     }
 
-    public static void sendSetPassword(String email) throws MessagingException, UnsupportedEncodingException, jakarta.mail.MessagingException {
+    public static void sendSetPassword(String email) throws MessagingException, jakarta.mail.MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+        mimeMessageHelper.setFrom("puskesmasonline273@gmail.com");
         mimeMessageHelper.setTo(email);
-        mimeMessageHelper.setSubject("Forgot Password");
-        mimeMessageHelper.setText("<html><body>" +
+        mimeMessageHelper.setSubject("Set Password");
+        mimeMessageHelper.setText(
                 "<div>" +
-                "   <a href=\"http://localhost:8080/api/user/forgot-password?email=%s \" target=\"_blank\"> Click Lnk To Forgot Password </a>" +
-                "</div>" +
-                "</body></html>", true);
+                "   <a href=\"<http://localhost:8080/api/user/set-password?email=%s>\" target=\"_blank\"> Click Lnk To Set Password </a>" +
+                "</div>".formatted(email), true);
 
         javaMailSender.send(mimeMessage);
+
     }
+
 
 
 }

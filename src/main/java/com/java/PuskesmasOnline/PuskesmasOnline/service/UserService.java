@@ -2,7 +2,9 @@ package com.java.PuskesmasOnline.PuskesmasOnline.service;
 
 import com.java.PuskesmasOnline.PuskesmasOnline.model.LoginRequest;
 import com.java.PuskesmasOnline.PuskesmasOnline.model.User;
+import jakarta.mail.MessagingException;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -15,8 +17,9 @@ public interface UserService {
 
 
 
-    String forgotPassword(String email);
 
+
+    String forgotPassword(String email) throws MessagingException, UnsupportedEncodingException;
 
     List<User> getAll();
 

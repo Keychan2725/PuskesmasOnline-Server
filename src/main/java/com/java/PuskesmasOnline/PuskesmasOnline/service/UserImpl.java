@@ -5,6 +5,7 @@ import com.java.PuskesmasOnline.PuskesmasOnline.security.JwtUtils;
 import com.java.PuskesmasOnline.PuskesmasOnline.model.LoginRequest;
 import com.java.PuskesmasOnline.PuskesmasOnline.model.User;
 import com.java.PuskesmasOnline.PuskesmasOnline.util.EmailUtil;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -67,24 +67,22 @@ public class UserImpl implements UserService{
         response.put("token", jwt);
         response.put("last_login", formattedLastLogin);
 
-        // Lakukan pengalihan berdasarkan peran
-        if (user.getRole().equals("admin")) {
-            response.put("type_token", "Admin");
-            // Lakukan apa yang perlu Anda lakukan untuk dashboard admin
-            // ...
-            response.put("redirect", "/dashboardAdmin");
-        } else if (user.getRole().equals("user")) {
-            response.put("type_token", "User");
-            // Lakukan apa yang perlu Anda lakukan untuk dashboard user
-            // ...
-            response.put("redirect", "/dashboardUser");
-        } else if (user.getRole().equals("super_admin")) {
-            response.put("type_token", "Super Admin");
-            // Lakukan apa yang perlu Anda lakukan untuk dashboard super admin
-            // ...
-            response.put("redirect", "/dashboardSuperAdmin");
+        if (!user.getCodeVer().equals(null)){
+            // Lakukan pengalihan berdasarkan peran
+            if (user.getRole().equals("admin")) {
+                response.put("type_token", "Admin");
+
+            } else if (user.getRole().equals("user")) {
+                response.put("type_token", "User");
+
+            } else if (user.getRole().equals("super_admin")) {
+                response.put("type_token", "Super Admin");
+
+            } else {
+                throw new NotFoundException("Invalid role");
+            }
         } else {
-            throw new NotFoundException("Invalid role");
+                 throw new NotFoundException("Akun Anda Belum Terverifikasi");
         }
 
         return response;
@@ -120,16 +118,20 @@ public class UserImpl implements UserService{
     }
 
     @Override
-    public String forgotPassword(String email) {
+    public String forgotPassword(String email) throws MessagingException, UnsupportedEncodingException {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(
                         () -> new RuntimeException("User Tidak Ditemukan Dengan Email : " + email)
                 );
+
         try {
+
             EmailUtil.sendSetPassword(email);
-        } catch (UnsupportedEncodingException | jakarta.mail.MessagingException e) {
-            throw new RuntimeException("Tidak Bisa Mengirimkan Link Forgot Password, Tolong Coba Lagi");
+        } catch (MessagingException e) {
+            throw new RuntimeException("Unable to send set password ");
         }
+
+
         return "Tolong Cek Email Anda Untuk Melakukan Forgot Password";
     }
 

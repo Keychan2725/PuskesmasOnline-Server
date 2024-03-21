@@ -14,6 +14,7 @@ import com.java.PuskesmasOnline.PuskesmasOnline.model.User;
 import com.java.PuskesmasOnline.PuskesmasOnline.repository.UserRepository;
 import com.java.PuskesmasOnline.PuskesmasOnline.service.UserImpl;
 import com.java.PuskesmasOnline.PuskesmasOnline.service.UserService;
+import jakarta.mail.MessagingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.validation.Valid;
+import java.io.*;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -218,9 +217,21 @@ public class UserController {
         return FilenameUtils.getName(imageUrl);
     }
 
+    @PutMapping("/user/update-otp/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long id,
+                                           @RequestBody User updatedUser) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User not found with id : " + id));
+
+        user.setNoTel(updatedUser.getNoTel());
+        user.setCodeVer(updatedUser.getCodeVer());
+
+        final User savedUser = userRepository.save(user);
+        return ResponseEntity.ok(savedUser);
+    }
 
     @PutMapping("/user/forgot-password")
-    public ResponseEntity<String> forgotPassword(@RequestParam String email ){
+    public ResponseEntity<String> forgotPassword(@RequestParam String email ) throws MessagingException, UnsupportedEncodingException {
         return new ResponseEntity<>(userImpl.forgotPassword(email) , HttpStatus.OK);
     }
 
