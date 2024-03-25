@@ -22,16 +22,17 @@ public class DataKlinik {
 
     @Column(name = "idUser")
     private String idUser;
-    @Column(name = "operasiClient")
-    private String operasiClient;
 
-    public DataKlinik(Long id, String idUser ,String namaklinik, String alamatKlinik, String pemilik, String operasiClient) {
+    public DataKlinik( ) {
+
+    }
+
+    public DataKlinik(Long id, String idUser , String namaklinik, String alamatKlinik, String pemilik) {
         this.id = id;
         this.idUser = idUser;
         this.namaklinik = namaklinik;
         this.alamatKlinik = alamatKlinik;
         this.pemilik = pemilik;
-        this.operasiClient = operasiClient;
     }
 
     public Long getId() {
@@ -74,11 +75,5 @@ public class DataKlinik {
         this.pemilik = pemilik;
     }
 
-    public String getOperasiClient() {
-        return operasiClient;
-    }
 
-    public void setOperasiClient(String operasiClient) {
-        this.operasiClient = operasiClient;
-    }
 }

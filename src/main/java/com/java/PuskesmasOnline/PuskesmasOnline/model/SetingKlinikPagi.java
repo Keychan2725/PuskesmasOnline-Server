@@ -1,6 +1,9 @@
 package com.java.PuskesmasOnline.PuskesmasOnline.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "setingKlinikPagi")
@@ -13,13 +16,22 @@ public class SetingKlinikPagi {
     @Column(name = "jumlahNoAntrian")
     private String jumlahNoAntrian;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Jakarta")
+    @Column(name = "tanggalWaktu")
+    private Date tanggalWaktu;
     @Column(name = "idKlinik")
     private String idKlinik;
 
-    public SetingKlinikPagi(Long id, String jumlahNoAntrian, String idKlinik) {
+    public SetingKlinikPagi( ) {
+
+    }
+
+    public SetingKlinikPagi(Long id, String jumlahNoAntrian, String idKlinik , Date tanggalWaktu) {
         this.id = id;
         this.jumlahNoAntrian = jumlahNoAntrian;
         this.idKlinik = idKlinik;
+        this.tanggalWaktu = tanggalWaktu;
     }
 
     public Long getId() {
@@ -44,5 +56,13 @@ public class SetingKlinikPagi {
 
     public void setIdKlinik(String idKlinik) {
         this.idKlinik = idKlinik;
+    }
+
+    public Date getTanggalWaktu() {
+        return tanggalWaktu;
+    }
+
+    public void setTanggalWaktu(Date tanggalWaktu) {
+        this.tanggalWaktu = tanggalWaktu;
     }
 }

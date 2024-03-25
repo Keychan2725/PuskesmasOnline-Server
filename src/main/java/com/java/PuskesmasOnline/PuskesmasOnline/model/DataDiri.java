@@ -27,8 +27,11 @@ public class DataDiri {
     @Column(name = "nik")
     private String nik;
 
+    public DataDiri() {
 
-    public DataDiri(Long id, String idUser ,String namaDepan, String namaBelakang, String usia, String gender, String nik) {
+    }
+
+    public DataDiri(Long id, String idUser , String namaDepan, String namaBelakang, String usia, String gender, String nik) {
         this.id = id;
         this.idUser = idUser;
         this.namaDepan = namaDepan;

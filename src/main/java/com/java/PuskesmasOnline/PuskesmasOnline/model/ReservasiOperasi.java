@@ -22,6 +22,7 @@ public class ReservasiOperasi {
     @Column(name = "pembayaran")
     private String pembayaran;
 
+
     @Column(name = "idRuangan")
     private String idRuangan;
 
@@ -32,6 +33,10 @@ public class ReservasiOperasi {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Jakarta")
     @Column(name = "tanggalWaktu")
     private Date tanggalWaktu;
+
+    public ReservasiOperasi() {
+
+    }
 
     public ReservasiOperasi(Long id, String nameOperasi, String namaPasien, String pembayaran, String idRuangan, String status, Date tanggalWaktu) {
         this.id = id;

@@ -15,8 +15,11 @@ public class KlinikPagi {
     @Column(name = "noAntrian")
     private String noAntrian;
 
-    @Column(name = "status")
-    private String status;
+    @Column(name = "statusklinik")
+    private String statusKlinik;
+
+    @Column(name = "klinikId")
+    private String klinikId;
 
     @Column(name = "namaKlinik")
     private String namaKlinik;
@@ -26,13 +29,17 @@ public class KlinikPagi {
     @Column(name = "tanggalWaktu")
     private Date tanggalWaktu;
 
+    public KlinikPagi( ) {
 
-    public KlinikPagi(Long id, String noAntrian, String status, String namaKlinik, Date tanggalWaktu) {
+    }
+
+    public KlinikPagi(Long id, String noAntrian, String klinikId, String namaKlinik, Date tanggalWaktu , String statusKlinik) {
         this.id = id;
         this.noAntrian = noAntrian;
-        this.status = status;
+        this.klinikId = klinikId ;
         this.namaKlinik = namaKlinik;
         this.tanggalWaktu = tanggalWaktu;
+        this.statusKlinik = statusKlinik;
     }
 
 
@@ -52,12 +59,13 @@ public class KlinikPagi {
         this.noAntrian = noAntrian;
     }
 
-    public String getStatus() {
-        return status;
+
+    public String getKlinikId() {
+        return klinikId;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setKlinikId(String klinikId) {
+        this.klinikId = klinikId;
     }
 
     public String getNamaKlinik() {
@@ -74,5 +82,13 @@ public class KlinikPagi {
 
     public void setTanggalWaktu(Date tanggalWaktu) {
         this.tanggalWaktu = tanggalWaktu;
+    }
+
+    public String getStatusKlinik() {
+        return statusKlinik;
+    }
+
+    public void setStatusKlinik(String statusKlinik) {
+        this.statusKlinik = statusKlinik;
     }
 }

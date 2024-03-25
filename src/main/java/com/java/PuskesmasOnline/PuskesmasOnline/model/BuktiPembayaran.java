@@ -31,6 +31,10 @@ public class BuktiPembayaran {
     @Column(name = "tanggalWaktu")
     private Date tanggalWaktu;
 
+    public BuktiPembayaran() {
+
+    }
+
     public BuktiPembayaran(Long id, String idPasien, String idKlinik, String img, String status, Date tanggalWaktu) {
         this.id = id;
         this.idPasien = idPasien;

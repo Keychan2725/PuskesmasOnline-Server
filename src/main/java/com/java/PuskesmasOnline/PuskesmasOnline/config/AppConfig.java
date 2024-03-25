@@ -27,17 +27,5 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     }
 
 
-    @Bean
-    public JavaMailSender javaMailSender() {
-        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("puskesmasonline273@gmail.com");
-        mailSender.setPort(587);
-        mailSender.setUsername("Pusline2024");
-        mailSender.setPassword("puskesmas123");
-        Properties properties = mailSender.getJavaMailProperties();
-        properties.put("mail.transport.protocol", "smtp");
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
-        return mailSender;
-    }
+
 }

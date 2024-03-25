@@ -34,9 +34,10 @@ public class KlinikPagiService {
         if (existingKlinikPagiOptional.isPresent()) {
             KlinikPagi existingKlinikPagi = existingKlinikPagiOptional.get();
             existingKlinikPagi.setNoAntrian(newKlinikPagi.getNoAntrian());
-            existingKlinikPagi.setStatus(newKlinikPagi.getStatus());
+            existingKlinikPagi.setKlinikId(newKlinikPagi.getKlinikId());
             existingKlinikPagi.setNamaKlinik(newKlinikPagi.getNamaKlinik());
             existingKlinikPagi.setTanggalWaktu(newKlinikPagi.getTanggalWaktu());
+            existingKlinikPagi.setStatusKlinik(newKlinikPagi.getStatusKlinik());
             return klinikPagiRepository.save(existingKlinikPagi);
         } else {
             // Handle case when klinikPagi with given id not found

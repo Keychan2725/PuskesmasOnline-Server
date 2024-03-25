@@ -38,6 +38,10 @@ public class Operasi {
     private Date tanggalWaktu;
 
 
+    public Operasi( ) {
+
+    }
+
     public Operasi(Long id, String idRuangan, String namaPasien, String nameOperasi, String idPasien, String idKlinik, String status, Date tanggalWaktu) {
         this.id = id;
         this.namaPasien = namaPasien;

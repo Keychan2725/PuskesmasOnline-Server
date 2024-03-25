@@ -34,9 +34,10 @@ public class SetingKlinikPagiService {
             SetingKlinikPagi existingSetingKlinikPagi = existingSetingKlinikPagiOptional.get();
             existingSetingKlinikPagi.setJumlahNoAntrian(newSetingKlinikPagi.getJumlahNoAntrian());
             existingSetingKlinikPagi.setIdKlinik(newSetingKlinikPagi.getIdKlinik());
+            existingSetingKlinikPagi.setTanggalWaktu(newSetingKlinikPagi.getTanggalWaktu());
             return setingKlinikPagiRepository.save(existingSetingKlinikPagi);
         } else {
-            // Handle case when setingKlinikPagi with given id not found
+
             return null;
         }
     }

@@ -38,7 +38,6 @@ public class DataKlinikService {
             existingDataKlinik.setAlamatKlinik(newDataKlinik.getAlamatKlinik());
             existingDataKlinik.setPemilik(newDataKlinik.getPemilik());
             existingDataKlinik.setIdUser(newDataKlinik.getIdUser());
-            existingDataKlinik.setOperasiClient(newDataKlinik.getOperasiClient());
             return dataKlinikRepository.save(existingDataKlinik);
         } else {
             // Handle case when dataKlinik with given id not found
