@@ -35,6 +35,8 @@ public class User {
     @Column(name = "noTel")
     private String noTel;
 
+    @Column(name = "token")
+    private String token;
     @Column(name = "status")
     private String status;
 
@@ -78,6 +80,14 @@ public class User {
 
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public void setEnabled(boolean enabled) {

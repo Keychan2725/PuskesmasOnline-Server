@@ -6,6 +6,7 @@ import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import com.java.PuskesmasOnline.PuskesmasOnline.dto.ForGotPass;
 import com.java.PuskesmasOnline.PuskesmasOnline.exception.CommonResponse;
 import com.java.PuskesmasOnline.PuskesmasOnline.exception.NotFoundException;
 import com.java.PuskesmasOnline.PuskesmasOnline.exception.ResponseHelper;
@@ -14,7 +15,6 @@ import com.java.PuskesmasOnline.PuskesmasOnline.model.User;
 import com.java.PuskesmasOnline.PuskesmasOnline.repository.UserRepository;
 import com.java.PuskesmasOnline.PuskesmasOnline.service.UserImpl;
 import com.java.PuskesmasOnline.PuskesmasOnline.service.UserService;
-import jakarta.mail.MessagingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +25,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.*;
 import java.net.URLEncoder;
@@ -230,11 +231,11 @@ public class UserController {
         return ResponseEntity.ok(savedUser);
     }
 
-    @PutMapping("/user/forgot-password")
-    public ResponseEntity<String> forgotPassword(@RequestParam String email ) throws MessagingException, UnsupportedEncodingException {
-        return new ResponseEntity<>(userImpl.forgotPassword(email) , HttpStatus.OK);
-    }
+    @PostMapping("/user/forgot_password")
+    public CommonResponse<ForGotPass> sendEmail(@RequestBody ForGotPass forGotPass) throws MessagingException, jakarta.mail.MessagingException {
+        return ResponseHelper.ok(userService.sendEmail(forGotPass));
 
+    }
     @GetMapping("/user/{id}")
     public CommonResponse <User> get(@PathVariable("id") Long id){
         return ResponseHelper.ok( userService.get(id));
