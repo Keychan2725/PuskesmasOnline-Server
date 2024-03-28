@@ -1,6 +1,7 @@
 package com.java.PuskesmasOnline.PuskesmasOnline.service;
 
 
+import com.java.PuskesmasOnline.PuskesmasOnline.impl.KlinikPagiImpl;
 import com.java.PuskesmasOnline.PuskesmasOnline.model.KlinikPagi;
 import com.java.PuskesmasOnline.PuskesmasOnline.repository.KlinikPagiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class KlinikPagiService {
+public class KlinikPagiService implements KlinikPagiImpl {
 
     @Autowired
     private KlinikPagiRepository klinikPagiRepository;
@@ -38,6 +39,7 @@ public class KlinikPagiService {
             existingKlinikPagi.setNamaKlinik(newKlinikPagi.getNamaKlinik());
             existingKlinikPagi.setTanggalWaktu(newKlinikPagi.getTanggalWaktu());
             existingKlinikPagi.setStatusKlinik(newKlinikPagi.getStatusKlinik());
+            existingKlinikPagi.setStatus(newKlinikPagi.getStatus());
             return klinikPagiRepository.save(existingKlinikPagi);
         } else {
             // Handle case when klinikPagi with given id not found
