@@ -231,11 +231,7 @@ public class UserController {
         return ResponseEntity.ok(savedUser);
     }
 
-    @PostMapping("/user/forgot_password")
-    public CommonResponse<ForGotPass> sendEmail(@RequestBody ForGotPass forGotPass) throws MessagingException, jakarta.mail.MessagingException {
-        return ResponseHelper.ok(userService.sendEmail(forGotPass));
 
-    }
     @GetMapping("/user/{id}")
     public CommonResponse <User> get(@PathVariable("id") Long id){
         return ResponseHelper.ok( userService.get(id));

@@ -24,6 +24,9 @@ public class KlinikPagi {
     @Column(name = "namaKlinik")
     private String namaKlinik;
 
+    @Column(name = "status")
+    private String status;
+
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Jakarta")
     @Column(name = "tanggalWaktu")
@@ -33,13 +36,14 @@ public class KlinikPagi {
 
     }
 
-    public KlinikPagi(Long id, String noAntrian, String klinikId, String namaKlinik, Date tanggalWaktu , String statusKlinik) {
+    public KlinikPagi(Long id, String noAntrian, String status ,String klinikId, String namaKlinik, Date tanggalWaktu , String statusKlinik) {
         this.id = id;
         this.noAntrian = noAntrian;
         this.klinikId = klinikId ;
         this.namaKlinik = namaKlinik;
         this.tanggalWaktu = tanggalWaktu;
         this.statusKlinik = statusKlinik;
+        this.status = status;
     }
 
 
@@ -90,5 +94,13 @@ public class KlinikPagi {
 
     public void setStatusKlinik(String statusKlinik) {
         this.statusKlinik = statusKlinik;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

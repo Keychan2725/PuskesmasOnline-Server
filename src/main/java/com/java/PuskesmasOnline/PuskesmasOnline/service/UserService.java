@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface UserService {
-    ForGotPass sendPassword(ForGotPass forGotPass) throws javax.mail.MessagingException, MessagingException;
 
     Map<Object, Object> login(LoginRequest loginRequest);
     User addUser(User user);
@@ -18,11 +17,7 @@ public interface UserService {
     User addAdmin(User user);
     User get(Long id);
 
-    ForGotPass sendEmail(ForGotPass forGotPass) throws javax.mail.MessagingException, MessagingException;
 
-    User updatePassword(Long id, User user);
-
-    String forgotPassword(String email) throws MessagingException, UnsupportedEncodingException;
 
     List<User> getAll();
 

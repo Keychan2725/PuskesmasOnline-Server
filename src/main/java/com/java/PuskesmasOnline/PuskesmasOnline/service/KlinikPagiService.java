@@ -1,7 +1,6 @@
 package com.java.PuskesmasOnline.PuskesmasOnline.service;
 
 
-import com.java.PuskesmasOnline.PuskesmasOnline.impl.KlinikPagiImpl;
 import com.java.PuskesmasOnline.PuskesmasOnline.model.KlinikPagi;
 import com.java.PuskesmasOnline.PuskesmasOnline.repository.KlinikPagiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class KlinikPagiService implements KlinikPagiImpl {
+public class KlinikPagiService  {
 
     @Autowired
     private KlinikPagiRepository klinikPagiRepository;

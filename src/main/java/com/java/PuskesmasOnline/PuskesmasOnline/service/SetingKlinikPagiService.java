@@ -1,6 +1,7 @@
 package com.java.PuskesmasOnline.PuskesmasOnline.service;
 import com.java.PuskesmasOnline.PuskesmasOnline.model.SetingKlinikPagi;
 import com.java.PuskesmasOnline.PuskesmasOnline.repository.SetingKlinikPagiRepository;
+import com.java.PuskesmasOnline.PuskesmasOnline.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,10 +9,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SetingKlinikPagiService {
+public class SetingKlinikPagiService  {
 
     @Autowired
     private SetingKlinikPagiRepository setingKlinikPagiRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     // Create operation
     public SetingKlinikPagi createOrUpdate(SetingKlinikPagi setingKlinikPagi) {
