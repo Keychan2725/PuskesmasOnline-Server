@@ -32,13 +32,25 @@ public class KlinikPagiController {
         return new ResponseEntity<>(klinikPagiList, HttpStatus.OK);
     }
 
-    @GetMapping("/admin/klinikpagi/{id}")
-    public ResponseEntity<KlinikPagi> getKlinikPagiById(@PathVariable Long id) {
-        Optional<KlinikPagi> klinikPagiOptional = klinikPagiService.getKlinikPagiById(id);
-        return klinikPagiOptional.map(klinikPagi -> new ResponseEntity<>(klinikPagi, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    @GetMapping("/admin/klinikpagi/{klinikId}")
+    public ResponseEntity<List<KlinikPagi>> getKlinikPagiByKlinikId(@PathVariable String klinikId) {
+        List<KlinikPagi> klinikPagiList = klinikPagiService.getKlinikPagiByKlinikId(klinikId);
+        if (!klinikPagiList.isEmpty()) {
+            return new ResponseEntity<>(klinikPagiList, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
+    @GetMapping("/admin/klinikpagi/{id")
+    public ResponseEntity<Optional<KlinikPagi>> getklinikById (@PathVariable Long id){
+        Optional<KlinikPagi> klinikPagi = klinikPagiService.getById(id);
+        if (!klinikPagi .isEmpty()) {
+            return new ResponseEntity<>(klinikPagi , HttpStatus.OK);
+        } else  {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     // Update
     @PutMapping("/admin/klinikpagi/update/{id}")
     public ResponseEntity<KlinikPagi> updateKlinikPagi(@PathVariable Long id, @RequestBody KlinikPagi newKlinikPagi) {

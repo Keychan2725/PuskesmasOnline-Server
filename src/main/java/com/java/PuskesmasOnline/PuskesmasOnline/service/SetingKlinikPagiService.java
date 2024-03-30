@@ -5,6 +5,8 @@ import com.java.PuskesmasOnline.PuskesmasOnline.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,8 +19,10 @@ public class SetingKlinikPagiService  {
     @Autowired
     private UserRepository userRepository;
 
-    // Create operation
     public SetingKlinikPagi createOrUpdate(SetingKlinikPagi setingKlinikPagi) {
+        Date currentDate = new Date(); // Mendapatkan waktu saat ini
+        setingKlinikPagi.setTanggalWaktu(currentDate);
+
         return setingKlinikPagiRepository.save(setingKlinikPagi);
     }
 

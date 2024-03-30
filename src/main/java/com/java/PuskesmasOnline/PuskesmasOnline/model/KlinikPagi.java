@@ -24,6 +24,9 @@ public class KlinikPagi {
     @Column(name = "namaKlinik")
     private String namaKlinik;
 
+    @Column(name = "alamat")
+    private String alamat;
+
     @Column(name = "status")
     private String status;
 
@@ -36,13 +39,16 @@ public class KlinikPagi {
 
     }
 
-    public KlinikPagi(Long id, String noAntrian, String status ,String klinikId, String namaKlinik, Date tanggalWaktu , String statusKlinik) {
+
+
+    public KlinikPagi(Long id, String noAntrian, String status , String klinikId, String namaKlinik, Date tanggalWaktu ,String alamat ,String statusKlinik) {
         this.id = id;
         this.noAntrian = noAntrian;
         this.klinikId = klinikId ;
         this.namaKlinik = namaKlinik;
         this.tanggalWaktu = tanggalWaktu;
         this.statusKlinik = statusKlinik;
+        this.alamat = alamat;
         this.status = status;
     }
 
@@ -82,6 +88,14 @@ public class KlinikPagi {
 
     public Date getTanggalWaktu() {
         return tanggalWaktu;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
     }
 
     public void setTanggalWaktu(Date tanggalWaktu) {

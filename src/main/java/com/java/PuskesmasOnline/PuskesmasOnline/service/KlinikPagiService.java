@@ -6,6 +6,7 @@ import com.java.PuskesmasOnline.PuskesmasOnline.repository.KlinikPagiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,8 @@ public class KlinikPagiService  {
 
     // Create operation
     public KlinikPagi createOrUpdate(KlinikPagi klinikPagi) {
+        Date currentDate = new Date(); // Mendapatkan waktu saat ini
+        klinikPagi.setTanggalWaktu(currentDate);
         return klinikPagiRepository.save(klinikPagi);
     }
 
@@ -24,7 +27,11 @@ public class KlinikPagiService  {
         return klinikPagiRepository.findAll();
     }
 
-    public Optional<KlinikPagi> getKlinikPagiById(Long id) {
+    public List<KlinikPagi> getKlinikPagiByKlinikId(String klinikId) {
+        return klinikPagiRepository.findAllByKlinikId (klinikId);
+    }
+
+    public Optional<KlinikPagi> getById (Long id) {
         return klinikPagiRepository.findById(id);
     }
 
@@ -38,6 +45,7 @@ public class KlinikPagiService  {
             existingKlinikPagi.setNamaKlinik(newKlinikPagi.getNamaKlinik());
             existingKlinikPagi.setTanggalWaktu(newKlinikPagi.getTanggalWaktu());
             existingKlinikPagi.setStatusKlinik(newKlinikPagi.getStatusKlinik());
+            existingKlinikPagi.setAlamat(newKlinikPagi.getAlamat());
             existingKlinikPagi.setStatus(newKlinikPagi.getStatus());
             return klinikPagiRepository.save(existingKlinikPagi);
         } else {
@@ -50,4 +58,7 @@ public class KlinikPagiService  {
     public void deleteKlinikPagi(Long id) {
         klinikPagiRepository.deleteById(id);
     }
+
+
+
 }

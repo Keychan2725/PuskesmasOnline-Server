@@ -16,6 +16,7 @@ public class SetingKlinikPagi {
     @Column(name = "jumlahNoAntrian")
     private String jumlahNoAntrian;
 
+
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Jakarta")
     @Column(name = "tanggalWaktu")
