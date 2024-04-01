@@ -10,6 +10,10 @@ import java.util.Optional;
 @Repository
 public interface KlinikPagiRepository extends JpaRepository<KlinikPagi , Long> {
     List<KlinikPagi> findAllByKlinikId(String klinikId);
+
+    Optional<KlinikPagi> findByKlinikId (String klinikId);
     Optional<KlinikPagi> findById (Long id);
+
+
 
 }

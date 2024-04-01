@@ -1,8 +1,8 @@
 package com.java.PuskesmasOnline.PuskesmasOnline.controller;
 
 
-import com.java.PuskesmasOnline.PuskesmasOnline.model.KlinikPagi;
-import com.java.PuskesmasOnline.PuskesmasOnline.service.KlinikPagiService;
+ import com.java.PuskesmasOnline.PuskesmasOnline.model.KlinikPagi;
+ import com.java.PuskesmasOnline.PuskesmasOnline.service.KlinikPagiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +59,17 @@ public class KlinikPagiController {
             return new ResponseEntity<>(updatedKlinikPagi, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/admin/klinikpagi/ambilantrian/{klinikId}")
+    public ResponseEntity<KlinikPagi> ambilAntrian (@PathVariable String klinikId, @RequestBody KlinikPagi klinikPagi){
+        Optional<KlinikPagi> klinikPagiResult = klinikPagiService.ambilAntrian(klinikId);
+
+        if (klinikPagiResult.isPresent()) {
+            return ResponseEntity.ok(klinikPagiResult.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 

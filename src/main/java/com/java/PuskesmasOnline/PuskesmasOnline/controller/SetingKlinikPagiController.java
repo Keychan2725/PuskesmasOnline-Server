@@ -39,6 +39,7 @@ public class SetingKlinikPagiController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+
     // Update
     @PutMapping("/setingklinikpagi/update/{id}")
     public ResponseEntity<SetingKlinikPagi> updateSetingKlinikPagi(@PathVariable Long id, @RequestBody SetingKlinikPagi newSetingKlinikPagi) {
