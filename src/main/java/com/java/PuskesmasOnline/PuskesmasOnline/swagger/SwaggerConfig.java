@@ -26,7 +26,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.template.eazypos.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.java.PuskesmasOnline.PuskesmasOnline.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo( apiInfo())
@@ -44,7 +44,7 @@ public class SwaggerConfig {
                 "");
     }
     private ApiKey apiKey() {
-        return new ApiKey("JWT", "auth-tgh", "header");
+        return new ApiKey("JWT", "Authorization", "header");
     }
 
     private SecurityContext securityContext(){

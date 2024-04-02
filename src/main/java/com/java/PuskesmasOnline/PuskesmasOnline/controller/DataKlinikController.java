@@ -20,20 +20,20 @@ public class DataKlinikController {
     private DataKlinikService dataKlinikService;
 
     // Create
-    @PostMapping("/admin/create")
+    @PostMapping("/admin/admin/dataklinik/create")
     public ResponseEntity<DataKlinik> createOrUpdateDataKlinik(@RequestBody DataKlinik dataKlinik) {
         DataKlinik createdDataKlinik = dataKlinikService.createOrUpdate(dataKlinik);
         return new ResponseEntity<>(createdDataKlinik, HttpStatus.CREATED);
     }
 
     // Read
-    @GetMapping("/admin/all")
+    @GetMapping("/admin/dataklinik/all")
     public ResponseEntity<List<DataKlinik>> getAllDataKlinik() {
         List<DataKlinik> dataKlinikList = dataKlinikService.getAllDataKlinik();
         return new ResponseEntity<>(dataKlinikList, HttpStatus.OK);
     }
 
-    @GetMapping("/admin/{id}")
+    @GetMapping("/admin/dataklinik/{id}")
     public ResponseEntity<DataKlinik> getDataKlinikById(@PathVariable Long id) {
         Optional<DataKlinik> dataKlinikOptional = dataKlinikService.getDataKlinikById(id);
         return dataKlinikOptional.map(dataKlinik -> new ResponseEntity<>(dataKlinik, HttpStatus.OK))
@@ -41,7 +41,7 @@ public class DataKlinikController {
     }
 
     // Update
-    @PutMapping("/admin/update/{id}")
+    @PutMapping("/admin/dataklinik/update/{id}")
     public ResponseEntity<DataKlinik> updateDataKlinik(@PathVariable Long id, @RequestBody DataKlinik newDataKlinik) {
         DataKlinik updatedDataKlinik = dataKlinikService.updateDataKlinik(id, newDataKlinik);
         if (updatedDataKlinik != null) {
@@ -52,7 +52,7 @@ public class DataKlinikController {
     }
 
     // Delete
-    @DeleteMapping("/admin/delete/{id}")
+    @DeleteMapping("/admin/dataklinik/delete/{id}")
     public ResponseEntity<Void> deleteDataKlinik(@PathVariable Long id) {
         dataKlinikService.deleteDataKlinik(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -11,8 +11,8 @@ public class DataKlinik {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "namaKlinik")
-    private String namaklinik;
+    @Column(name = "namaklinik")
+    private String namaKlinik;
 
     @Column(name = "alamatKlinik")
     private String alamatKlinik;
@@ -27,10 +27,10 @@ public class DataKlinik {
 
     }
 
-    public DataKlinik(Long id, String idUser , String namaklinik, String alamatKlinik, String pemilik) {
+    public DataKlinik(Long id, String idUser , String namaKlinik, String alamatKlinik, String pemilik) {
         this.id = id;
         this.idUser = idUser;
-        this.namaklinik = namaklinik;
+        this.namaKlinik = namaKlinik;
         this.alamatKlinik = alamatKlinik;
         this.pemilik = pemilik;
     }
@@ -43,12 +43,12 @@ public class DataKlinik {
         this.id = id;
     }
 
-    public String getNamaklinik() {
-        return namaklinik;
+    public String getNamaKlinik() {
+        return namaKlinik;
     }
 
-    public void setNamaklinik(String namaklinik) {
-        this.namaklinik = namaklinik;
+    public void setNamaKlinik(String namaKlinik) {
+        this.namaKlinik = namaKlinik;
     }
 
     public String getAlamatKlinik() {

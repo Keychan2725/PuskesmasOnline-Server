@@ -34,7 +34,7 @@ public class DataKlinikService {
         Optional<DataKlinik> existingDataKlinikOptional = dataKlinikRepository.findById(id);
         if (existingDataKlinikOptional.isPresent()) {
             DataKlinik existingDataKlinik = existingDataKlinikOptional.get();
-            existingDataKlinik.setNamaklinik(newDataKlinik.getNamaklinik());
+            existingDataKlinik.setNamaKlinik(newDataKlinik.getNamaKlinik());
             existingDataKlinik.setAlamatKlinik(newDataKlinik.getAlamatKlinik());
             existingDataKlinik.setPemilik(newDataKlinik.getPemilik());
             existingDataKlinik.setIdUser(newDataKlinik.getIdUser());

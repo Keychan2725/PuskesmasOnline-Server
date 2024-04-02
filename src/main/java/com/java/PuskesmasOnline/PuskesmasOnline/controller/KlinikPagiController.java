@@ -3,12 +3,16 @@ package com.java.PuskesmasOnline.PuskesmasOnline.controller;
 
  import com.java.PuskesmasOnline.PuskesmasOnline.model.KlinikPagi;
  import com.java.PuskesmasOnline.PuskesmasOnline.service.KlinikPagiService;
-import org.springframework.beans.factory.annotation.Autowired;
+ import com.java.PuskesmasOnline.PuskesmasOnline.service.UserDetail;
+ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+ import org.springframework.security.core.annotation.AuthenticationPrincipal;
+ import org.springframework.security.core.userdetails.UserDetails;
+ import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+ import javax.swing.*;
+ import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -31,10 +35,18 @@ public class KlinikPagiController {
         List<KlinikPagi> klinikPagiList = klinikPagiService.getAllKlinikPagi();
         return new ResponseEntity<>(klinikPagiList, HttpStatus.OK);
     }
-
     @GetMapping("/admin/klinikpagi/{klinikId}")
-    public ResponseEntity<List<KlinikPagi>> getKlinikPagiByKlinikId(@PathVariable String klinikId) {
-        List<KlinikPagi> klinikPagiList = klinikPagiService.getKlinikPagiByKlinikId(klinikId);
+    public ResponseEntity<Optional<KlinikPagi>> getKlinikPagiByKlinikId(@PathVariable String klinikId) {
+        Optional<KlinikPagi> klinikPagiList = klinikPagiService.getByKlinikId(klinikId);
+        if (!klinikPagiList.isEmpty()) {
+            return new ResponseEntity<>(klinikPagiList, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/admin/klinikpagi/get/{id}")
+    public ResponseEntity<Optional<KlinikPagi>> getKlinikPagiById(@PathVariable Long id) {
+        Optional<KlinikPagi> klinikPagiList = klinikPagiService.getKlinikById(id);
         if (!klinikPagiList.isEmpty()) {
             return new ResponseEntity<>(klinikPagiList, HttpStatus.OK);
         } else {
@@ -42,16 +54,7 @@ public class KlinikPagiController {
         }
     }
 
-    @GetMapping("/admin/klinikpagi/{id")
-    public ResponseEntity<Optional<KlinikPagi>> getklinikById (@PathVariable Long id){
-        Optional<KlinikPagi> klinikPagi = klinikPagiService.getById(id);
-        if (!klinikPagi .isEmpty()) {
-            return new ResponseEntity<>(klinikPagi , HttpStatus.OK);
-        } else  {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-    // Update
+
     @PutMapping("/admin/klinikpagi/update/{id}")
     public ResponseEntity<KlinikPagi> updateKlinikPagi(@PathVariable Long id, @RequestBody KlinikPagi newKlinikPagi) {
         KlinikPagi updatedKlinikPagi = klinikPagiService.updateKlinikPagi(id, newKlinikPagi);
@@ -61,19 +64,16 @@ public class KlinikPagiController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-    @PutMapping("/admin/klinikpagi/ambilantrian/{klinikId}")
-    public ResponseEntity<KlinikPagi> ambilAntrian (@PathVariable String klinikId, @RequestBody KlinikPagi klinikPagi){
-        Optional<KlinikPagi> klinikPagiResult = klinikPagiService.ambilAntrian(klinikId);
-
-        if (klinikPagiResult.isPresent()) {
-            return ResponseEntity.ok(klinikPagiResult.get());
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    @PutMapping("/admin/klinikpagi/ambilantrian/{id}")
+    public ResponseEntity<KlinikPagi> ambilAntrian(@PathVariable Long id, @RequestParam String idUser) {
+        Optional<KlinikPagi> klinikPagiOptional = klinikPagiService.ambilAntrian(id, idUser);
+                if (klinikPagiOptional.isPresent()) {
+                    return ResponseEntity.ok(klinikPagiOptional.get());
+                } else {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).build();}
     }
 
-    // Delete
+
     @DeleteMapping("/admin/klinikpagi/delete/{id}")
     public ResponseEntity<Void> deleteKlinikPagi(@PathVariable Long id) {
         klinikPagiService.deleteKlinikPagi(id);

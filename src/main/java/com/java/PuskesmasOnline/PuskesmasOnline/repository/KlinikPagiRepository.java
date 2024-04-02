@@ -12,6 +12,7 @@ public interface KlinikPagiRepository extends JpaRepository<KlinikPagi , Long> {
     List<KlinikPagi> findAllByKlinikId(String klinikId);
 
     Optional<KlinikPagi> findByKlinikId (String klinikId);
+    List<KlinikPagi> findAntrianByKlinikId (String klinikId);
     Optional<KlinikPagi> findById (Long id);
 
 
