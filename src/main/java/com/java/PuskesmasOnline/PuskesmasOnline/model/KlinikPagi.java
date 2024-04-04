@@ -15,6 +15,9 @@ public class KlinikPagi {
     @Column(name = "noAntrian")
     private String noAntrian;
 
+    @Column(name = "count")
+    private String count;
+
     @Column(name = "statusklinik")
     private String statusKlinik;
 
@@ -41,8 +44,9 @@ public class KlinikPagi {
 
 
 
-    public KlinikPagi(Long id, String noAntrian, String status , String klinikId, String namaKlinik, Date tanggalWaktu ,String alamat ,String statusKlinik) {
+    public KlinikPagi(Long id,String count ,String noAntrian, String status , String klinikId, String namaKlinik, Date tanggalWaktu ,String alamat ,String statusKlinik) {
         this.id = id;
+        this.count = count;
         this.noAntrian = noAntrian;
         this.klinikId = klinikId ;
         this.namaKlinik = namaKlinik;
@@ -92,6 +96,14 @@ public class KlinikPagi {
 
     public String getAlamat() {
         return alamat;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
     }
 
     public void setAlamat(String alamat) {

@@ -36,8 +36,8 @@ public class KlinikPagiController {
         return new ResponseEntity<>(klinikPagiList, HttpStatus.OK);
     }
     @GetMapping("/admin/klinikpagi/{klinikId}")
-    public ResponseEntity<Optional<KlinikPagi>> getKlinikPagiByKlinikId(@PathVariable String klinikId) {
-        Optional<KlinikPagi> klinikPagiList = klinikPagiService.getByKlinikId(klinikId);
+    public ResponseEntity<List<KlinikPagi>> getKlinikPagiByKlinikId(@PathVariable String klinikId) {
+        List<KlinikPagi> klinikPagiList = klinikPagiService.getByKlinikId(klinikId);
         if (!klinikPagiList.isEmpty()) {
             return new ResponseEntity<>(klinikPagiList, HttpStatus.OK);
         } else {

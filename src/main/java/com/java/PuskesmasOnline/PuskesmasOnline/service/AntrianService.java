@@ -41,6 +41,7 @@ public class AntrianService {
         return antrianRepository.save(antrian);
     }
 
+
     public void deleteAntrian(Long id) {
         antrianRepository.deleteById(id);
     }

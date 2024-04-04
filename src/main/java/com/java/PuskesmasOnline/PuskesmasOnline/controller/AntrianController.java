@@ -23,7 +23,7 @@ public class AntrianController {
         return new ResponseEntity<>(antrians, HttpStatus.OK);
     }
 
-    @GetMapping("/antrian/{id}")
+    @GetMapping("/antrian/getBy/{id}")
     public ResponseEntity<Antrian> getAntrianById(@PathVariable Long id) {
         Optional<Antrian> antrian = antrianService.getAntrianById(id);
         return antrian.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
@@ -35,6 +35,8 @@ public class AntrianController {
         return antrian.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+
 
     @GetMapping("/antrian/all/{idUser}")
     public ResponseEntity<List<Antrian>> getAllAntrianByIdUser (@PathVariable String idUser) {

@@ -20,12 +20,13 @@ public class Antrian {
     @Column(name = "idKlinik")
     private String idKlinik;
 
-    @Column(name = "idKlinikPagi")
-    private String idKlinikPagi;
+
 
     @Column(name = "idUser")
     private String idUser;
 
+    @Column(name = "namaKlinik")
+    private  String namaKlinik;
     @Column(name = "noAntrian")
     private String noAntrian;
 
@@ -41,12 +42,12 @@ public class Antrian {
     public Antrian() {
     }
 
-    public Antrian(Long id, String idKlinik, String noAntrian,String idKlinikPagi, String idUser, String status , Date tanggalWaktu) {
+    public Antrian(Long id, String idKlinik, String noAntrian,String namaKlinik ,  String idUser, String status , Date tanggalWaktu) {
         this.id = id;
         this.idKlinik = idKlinik;
-        this.idKlinikPagi = idKlinikPagi;
         this.idUser = idUser;
         this.status = status;
+        this.namaKlinik = namaKlinik;
         this.noAntrian = noAntrian;
         this.tanggalWaktu = tanggalWaktu;
     }
@@ -65,16 +66,18 @@ public class Antrian {
     }
 
     public void setIdKlinik(String idKlinik) {
+
         this.idKlinik = idKlinik;
     }
-
-    public String getIdKlinikPagi() {
-        return idKlinikPagi;
+    public String getNamaKlinik() {
+        return namaKlinik;
     }
 
-    public void setIdKlinikPagi(String idKlinikPagi) {
-        this.idKlinikPagi = idKlinikPagi;
+    public void setNamaKlinik(String namaKlinik) {
+        this.namaKlinik = namaKlinik;
     }
+
+
 
     public String getNoAntrian() {
         return noAntrian;
