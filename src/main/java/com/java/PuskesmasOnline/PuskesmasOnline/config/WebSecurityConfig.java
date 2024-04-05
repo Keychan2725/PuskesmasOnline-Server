@@ -64,6 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/api/user/upload-image/**",
             "/api/user/delete-image/**",
             "/api/login",
+            "/api/**",
             "/api/admin/**",
             "/api/superadmin/**",
             "/api/buktipembayaran/**",
