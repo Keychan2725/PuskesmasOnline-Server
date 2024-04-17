@@ -30,7 +30,7 @@ public class ExcelHelper {
     static String SHEET = "Sheet1";
 
     public static boolean hasExcelFormat(MultipartFile file) {
-        ret urn TYPE.equals(file.getContentType());
+        return TYPE.equals(file.getContentType());
     }
 
     public static ByteArrayInputStream klinikPagiToExcel(List<KlinikPagi> klinikPagiList) {
