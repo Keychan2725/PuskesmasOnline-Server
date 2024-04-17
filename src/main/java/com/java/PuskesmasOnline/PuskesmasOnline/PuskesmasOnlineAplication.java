@@ -9,10 +9,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @SpringBootApplication
 public class PuskesmasOnlineAplication {
-
-
-
-
 	public static void main(String[] args) {
 		SpringApplication.run(PuskesmasOnlineAplication.class, args);
 

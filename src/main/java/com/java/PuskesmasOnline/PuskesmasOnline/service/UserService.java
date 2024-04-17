@@ -13,7 +13,6 @@ public interface UserService {
 
     Map<Object, Object> login(LoginRequest loginRequest);
     User addUser(User user);
-
     User addAdmin(User user);
     User get(Long id);
 
@@ -21,6 +20,8 @@ public interface UserService {
 
     List<User> getAll();
 
+
+    User editPassword(Long id, User user);
 
     User edit(Long id, User user);
 

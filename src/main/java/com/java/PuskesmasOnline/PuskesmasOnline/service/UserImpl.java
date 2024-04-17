@@ -1,14 +1,12 @@
 package com.java.PuskesmasOnline.PuskesmasOnline.service;
-import com.java.PuskesmasOnline.PuskesmasOnline.dto.ForGotPass;
+import com.java.PuskesmasOnline.PuskesmasOnline.exception.InvalidPasswordException;
 import com.java.PuskesmasOnline.PuskesmasOnline.exception.NotFoundException;
 import com.java.PuskesmasOnline.PuskesmasOnline.repository.UserRepository;
 import com.java.PuskesmasOnline.PuskesmasOnline.security.JwtUtils;
 import com.java.PuskesmasOnline.PuskesmasOnline.model.LoginRequest;
 import com.java.PuskesmasOnline.PuskesmasOnline.model.User;
-import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,8 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -125,16 +121,27 @@ public class UserImpl implements UserService{
     }
 
     @Override
+    public User editPassword(Long id, User user) {
+        User existingPass = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User Tidak Di Temukan"));
+
+        if (!new BCryptPasswordEncoder().matches(user.getPassword(), existingPass.getPassword())) {
+            throw new InvalidPasswordException("Password lama tidak sesuai");
+        }
+
+        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+
+        existingPass.setPassword(encodedPassword);
+
+        return userRepository.save(existingPass);
+    }
+
+    @Override
     public User edit(Long id, User user) {
 
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User tidak ditemukan"));
 
-
-        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
-
-
-        existingUser.setPassword(encodedPassword);
         existingUser.setUsername(user.getUsername());
         existingUser.setNoTel(user.getNoTel());
         existingUser.setImgUser(user.getImgUser());

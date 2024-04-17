@@ -25,6 +25,7 @@ public class DataKlinikService {
         return dataKlinikRepository.findAll();
     }
 
+
     public Optional<DataKlinik> getDataKlinikById(Long id) {
         return dataKlinikRepository.findById(id);
     }

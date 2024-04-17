@@ -6,6 +6,7 @@ import com.java.PuskesmasOnline.PuskesmasOnline.repository.DataDiriRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +31,9 @@ public class DataDiriService {
         return dataDiriRepository.findById(id);
     }
 
+    public Optional<DataDiri> getDataByIdUser (String idUser) {
+        return dataDiriRepository.getDataByIdUser(idUser);
+    }
     // Update operation
     public DataDiri updateDataDiri(Long id, DataDiri newDataDiri) {
         Optional<DataDiri> existingDataDiriOptional = dataDiriRepository.findById(id);
