@@ -6,9 +6,7 @@ import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
-import com.java.PuskesmasOnline.PuskesmasOnline.exception.CommonResponse;
-import com.java.PuskesmasOnline.PuskesmasOnline.exception.NotFoundException;
-import com.java.PuskesmasOnline.PuskesmasOnline.exception.ResponseHelper;
+import com.java.PuskesmasOnline.PuskesmasOnline.exception.*;
 import com.java.PuskesmasOnline.PuskesmasOnline.model.LoginRequest;
 import com.java.PuskesmasOnline.PuskesmasOnline.model.User;
 import com.java.PuskesmasOnline.PuskesmasOnline.repository.UserRepository;
@@ -20,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
@@ -185,9 +184,33 @@ public class UserController {
         return ResponseEntity.ok(savedUser);
     }
 
-    @PutMapping("/user/edit-password/{id}")
-    public User editPassword(@PathVariable Long id, @RequestBody User user) {
-        return userService.editPassword(id, user);
+    @PutMapping("/user/{id}/change-password")
+    public User changePassword(@PathVariable Long id, @RequestBody User user) {
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User not found"));
+
+        if (!new BCryptPasswordEncoder().matches(user.getPassword(), existingUser.getPassword())) {
+            throw new InvalidPasswordException("Old password tidak sesuai");
+        }
+        String encodedNewPassword = new BCryptPasswordEncoder().encode(user.getNewPassword());
+        existingUser.setNewPassword(encodedNewPassword);
+        return userRepository.save(existingUser);
+    }
+    @PostMapping("/user/{id}/verify-password")
+    public ResponseEntity<?> verifyPassword(@PathVariable Long id, @RequestBody User user) {
+        try {
+            User existingUser = userRepository.findById(id)
+                    .orElseThrow(() -> new NotFoundException("User not found"));
+
+            // Memeriksa apakah password yang dimasukkan cocok dengan yang tersimpan di database
+            if (new BCryptPasswordEncoder().matches(user.getPassword(), existingUser.getPassword())) {
+                return ResponseEntity.ok().body(new VerificationResponse(true));
+            } else {
+                return ResponseEntity.ok().body(new VerificationResponse(false));
+            }
+        } catch (NotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @GetMapping("/user/{id}")

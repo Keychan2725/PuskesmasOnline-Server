@@ -11,4 +11,6 @@ public interface DataDiriRepository extends JpaRepository<DataDiri , Long> {
 
     Optional<DataDiri> getDataByIdUser (String idUser);
 
+    Optional<DataDiri> findByIdUser (String idUser);
+
 }

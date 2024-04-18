@@ -35,6 +35,9 @@ public class User {
     @Column(name = "noTel")
     private String noTel;
 
+    @Column(name = "newPassword")
+    private String newPassword;
+
 
     @Column(name = "status")
     private String status;
@@ -48,6 +51,13 @@ public class User {
     @Column(name = "last_login")
     private Date last_login;
 
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
 
     public Long getId() {
         return id;

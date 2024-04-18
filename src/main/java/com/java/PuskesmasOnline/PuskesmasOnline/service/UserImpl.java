@@ -122,18 +122,16 @@ public class UserImpl implements UserService{
 
     @Override
     public User editPassword(Long id, User user) {
-        User existingPass = userRepository.findById(id)
+        User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User Tidak Di Temukan"));
 
-        if (!new BCryptPasswordEncoder().matches(user.getPassword(), existingPass.getPassword())) {
+        if (!new BCryptPasswordEncoder().matches(user.getPassword(), existingUser.getPassword())) {
             throw new InvalidPasswordException("Password lama tidak sesuai");
         }
-
-        String encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
-
-        existingPass.setPassword(encodedPassword);
-
-        return userRepository.save(existingPass);
+        String encodedNewPassword = new BCryptPasswordEncoder().encode(user.getNewPassword());
+        existingUser.setNewPassword(encodedNewPassword);
+        existingUser.setPassword(encodedNewPassword);
+        return userRepository.save(existingUser);
     }
 
     @Override

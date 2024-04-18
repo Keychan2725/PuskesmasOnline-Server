@@ -1,6 +1,7 @@
 package com.java.PuskesmasOnline.PuskesmasOnline.service;
 
 
+import com.java.PuskesmasOnline.PuskesmasOnline.exception.NotFoundException;
 import com.java.PuskesmasOnline.PuskesmasOnline.model.DataDiri;
 import com.java.PuskesmasOnline.PuskesmasOnline.repository.DataDiriRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,8 @@ public class DataDiriService {
         return dataDiriRepository.getDataByIdUser(idUser);
     }
     // Update operation
-    public DataDiri updateDataDiri(Long id, DataDiri newDataDiri) {
-        Optional<DataDiri> existingDataDiriOptional = dataDiriRepository.findById(id);
+    public DataDiri updateDataDiri(String idUser, DataDiri newDataDiri) {
+        Optional<DataDiri> existingDataDiriOptional = dataDiriRepository.findByIdUser(idUser);
         if (existingDataDiriOptional.isPresent()) {
             DataDiri existingDataDiri = existingDataDiriOptional.get();
             existingDataDiri.setNamaDepan(newDataDiri.getNamaDepan());
@@ -47,11 +48,9 @@ public class DataDiriService {
             existingDataDiri.setNik(newDataDiri.getNik());
             return dataDiriRepository.save(existingDataDiri);
         } else {
-            // Handle case when dataDiri with given id not found
-            return null;
+            throw new NotFoundException("Data Diri not found with id: " + idUser);
         }
     }
-
     // Delete operation
     public void deleteDataDiri(Long id) {
         dataDiriRepository.deleteById(id);

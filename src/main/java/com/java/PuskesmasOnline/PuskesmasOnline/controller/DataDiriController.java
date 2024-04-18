@@ -1,6 +1,7 @@
 package com.java.PuskesmasOnline.PuskesmasOnline.controller;
 
 import com.google.api.Http;
+import com.java.PuskesmasOnline.PuskesmasOnline.exception.NotFoundException;
 import com.java.PuskesmasOnline.PuskesmasOnline.model.DataDiri;
 import com.java.PuskesmasOnline.PuskesmasOnline.service.DataDiriService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,15 +44,17 @@ public class DataDiriController {
     }
 
     // Update
-    @PutMapping("/user/klinik/dataDiri/update/{id}")
-    public ResponseEntity<DataDiri> updateDataDiri(@PathVariable Long id, @RequestBody DataDiri newDataDiri) {
-        DataDiri updatedDataDiri = dataDiriService.updateDataDiri(id, newDataDiri);
-        if (updatedDataDiri != null) {
-            return new ResponseEntity<>(updatedDataDiri, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @PutMapping("/user/klinik/dataDiri/update/{idUser}")
+    public ResponseEntity<DataDiri> updateDataDiri(@PathVariable String idUser, @RequestBody DataDiri newDataDiri) {
+        try {
+            DataDiri updatedDataDiri = dataDiriService.updateDataDiri(idUser, newDataDiri);
+            return ResponseEntity.ok(updatedDataDiri);
+        } catch (NotFoundException e) {
+            return ResponseEntity.notFound().build();
         }
+
     }
+
 
     @GetMapping("/user/klinik/getDataDiriByIdUser/{idUser}")
     public ResponseEntity<DataDiri> getDataByIdUser (@PathVariable String idUser ){
