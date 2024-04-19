@@ -23,6 +23,12 @@ public interface UserService {
 
     User editPassword(Long id, User user);
 
+    User tolakKlinikregister(Long id);
+
+    User terimaKlinikregister(Long id);
+
+    User BatalKlinikregister(Long id);
+
     User edit(Long id, User user);
 
     Map<String, Boolean> delete(Long id);

@@ -15,7 +15,6 @@ import com.java.PuskesmasOnline.PuskesmasOnline.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -182,6 +181,19 @@ public class UserController {
 
         final User savedUser = userRepository.save(user);
         return ResponseEntity.ok(savedUser);
+    }
+
+    @PutMapping("/user/tolak-klinik/{id}")
+    public User TolakRegisteradmin(@PathVariable Long id){
+        return userService.tolakKlinikregister(id);
+    }
+   @PutMapping("/user/batal-klinik/{id}")
+    public User BatalRegisteradmin(@PathVariable Long id){
+        return userService.BatalKlinikregister(id);
+    }
+   @PutMapping("/user/terima-klinik/{id}")
+    public User TerimaRegisteradmin(@PathVariable Long id){
+        return userService.terimaKlinikregister(id);
     }
 
     @PutMapping("/user/{id}/change-password")

@@ -135,6 +135,30 @@ public class UserImpl implements UserService{
     }
 
     @Override
+    public User tolakKlinikregister(Long id){
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User tidak ditemukan"));
+       existingUser.setStatus("Ditolak");
+       return userRepository.save(existingUser);
+    }
+    @Override
+    public User terimaKlinikregister(Long id){
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User tidak ditemukan"));
+       existingUser.setStatus("Diterima");
+       return userRepository.save(existingUser);
+    }
+    @Override
+    public User BatalKlinikregister(Long id){
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User tidak ditemukan"));
+       existingUser.setStatus("");
+       return userRepository.save(existingUser);
+    }
+
+
+
+    @Override
     public User edit(Long id, User user) {
 
         User existingUser = userRepository.findById(id)
